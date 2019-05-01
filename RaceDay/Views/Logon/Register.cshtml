@@ -1,0 +1,62 @@
+﻿@using RaceDay.ViewModels;
+@model RegisterViewModel
+@{
+    ViewBag.Title = "RaceDay Registration";
+}
+
+<div class="row">
+    <div class="col-sm-4 col-sm-offset-4">
+
+        <h4>Welcome to JYMF RaceDay</h4>
+        <p>Access to the RaceDay web application reqires an approved account. Please complete the information below to regiser your account.</p>
+
+        @Html.PageMessageFor(m => m.PageMessage)
+
+        @using (Html.BeginForm(MVC.Logon.Register(), FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                @Html.LabelFor(m => m.FirstName, new { @class = "control-label required" })
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control focus-on-load", placeholder = "first name" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.LastName, new { @class = "control-label required" })
+                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "last name" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.RegisterEmail, new { @class = "control-label required" })
+                @Html.TextBoxFor(m => m.RegisterEmail, new { @class = "form-control", placeholder = "user@xyz.com" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.RegisterPassword, new { @class = "control-label required" })
+                @Html.PasswordFor(m => m.RegisterPassword, new { @class = "form-control", placeholder = "password" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label required" })
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "password" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.GroupCode, new { @class = "control-label required" })
+                @Html.TextBoxFor(m => m.GroupCode, new { @class = "form-control", placeholder = "code" })
+            </div>
+            <div class="form-group">
+                <div class="g-recaptcha" data-sitekey="@Model.RecaptchaSiteKey" data-callback="reCaptchaCallback"></div>
+            </div>
+            <div style="text-align: center"><input type="submit" value="Register Account" class="btn btn-primary" disabled="disabled" /></div>
+        }
+    </div>
+</div>
+<div class="row" style="margin-top: 20px;">
+    <div class="col-sm-4 col-sm-offset-4">
+        <div style="width: 49%; display: inline-block;">
+            @Html.ActionLink("Forgot Password?", MVC.Logon.ForgotPassword())
+        </div>
+        <div style="text-align: right; width: 49%; display: inline-block;">
+            @Html.ActionLink("Account Logon", MVC.Logon.Index())
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+}

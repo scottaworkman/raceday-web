@@ -1,0 +1,71 @@
+﻿@{
+    var user = RaceDay.RaceDayUser.CurrentUser;
+}
+<!DOCTYPE html>
+<html language="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/content/css")
+    @RenderSection("styles", required: false)
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row header">
+            <div class="col-md-6">
+                <div class="page-header">
+                    <a runat="server" href="~/">&nbsp;</a>
+                    @if (user != null)
+                    {
+                        <h1>Race Day <small>A friendly way to see who is racing with @user.Name</small></h1>
+                    }
+                    else
+                    {
+                        <h1>Race Day <small>JYMF Event Listing</small></h1>
+                    }
+                </div>
+            </div>
+            <div class="col-md-6 menu">
+                @if (user != null)
+                {
+                    <ul>
+                        <li><a href="/raceday/home/myprofile">Profile</a></li>
+                        <li><a href="/raceday/logon/logoff">Log Off</a></li>
+                    </ul>
+                    
+                }
+            </div>
+        </div>
+
+        <div class="main">
+            @RenderBody()
+        </div>
+
+        <div class="row footer">
+            <div class="col-md-12">
+                <div class="page-footer-left">
+                    &copy; @DateTime.Now.Year Workman
+                </div>
+                <div class="page-footer-right">
+                    <a href="mailto:scott@workmanfamily.com">scott@workmanfamily.com</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script type="text/javascript">
+        var ajaxUrls = { AttendingUrl: '@Url.Action(MVC.Home.Attending())', ParticipantsUrl: '@Url.Action(MVC.Home.Participants())', AjaxLoader : '@Url.Content("~/content/images/ajax-loader.gif")' };
+    </script>
+    @Scripts.Render("~/bundles/global")
+    @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if ((screen.width < 767) && (window != window.top))
+                $('#fbMobile')[0].click();
+        });
+    </script>
+</body>
+</html>

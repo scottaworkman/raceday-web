@@ -1,0 +1,46 @@
+﻿@using RaceDay.ViewModels;
+@model LogonViewModel
+@{
+    ViewBag.Title = "RaceDay Logon";
+}
+
+<div class="row">
+    <div class="col-sm-4 col-sm-offset-4">
+
+        <h4>Welcome to JYMF RaceDay</h4>
+        <p>Access to the RaceDay web application reqires an account with an email and password. If you do not have an account, you can <a href="/Raceday/Logon/Register">register an account.</a></p>
+        <p><i>*Note to current users:</i> Facebook is no longer used for authentication.  If you had a registered email, use the Forgot Password link below to receive a temporary password.</p>
+        <p>&nbsp;</p>
+
+        @Html.PageMessageFor(m => m.PageMessage)
+
+        @using (Html.BeginForm(MVC.Logon.Index(), FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                @Html.LabelFor(m => m.LoginEmail, new { @class = "control-label required" })
+                @Html.TextBoxFor(m => m.LoginEmail, new { @class = "form-control", placeholder = "user@xyz.com" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.LoginPassword, new { @class = "control-label required" })
+                @Html.PasswordFor(m => m.LoginPassword, new { @class = "form-control", placeholder = "password" })
+            </div>
+            <div class="form-group">
+                @Html.CheckBoxFor(m => m.RememberMe)
+                @Html.LabelFor(m => m.RememberMe)
+            </div>
+            <div style="text-align: center"><input type="submit" value="Logon" class="btn btn-primary" /></div>
+        }
+    </div>
+</div>
+<div class="row" style="margin-top: 20px;">
+    <div class="col-sm-4 col-sm-offset-4">
+        <div style="width: 49%; display: inline-block;">
+            @Html.ActionLink("Forgot Password?", MVC.Logon.ForgotPassword())
+        </div>
+        <div style="text-align: right; width: 49%; display: inline-block;">
+            @Html.ActionLink("Register an Account", MVC.Logon.Register())
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,23 @@
+﻿@using RaceDay.ViewModels;
+@model List<EventParticipant>
+@{
+    var count = 0;
+}
+
+@foreach (EventParticipant ep in Model)
+{
+    if (count % 3 == 0)
+    {
+        if (count > 0)
+        {
+            @Html.Raw("</div>")
+        }
+        @Html.Raw("<div class='row'>")
+    }
+    count++;
+
+    <div class="col-sm-4">
+       <div class="fbname">@ep.FullName</div>
+    </div>
+}
+</div>
